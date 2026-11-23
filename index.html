@@ -242,7 +242,7 @@ const $=id=>document.getElementById(id);
  
 /* ---------- MUNICIPIOS AUTOMATICOS DO IBGE ---------- */
 
-async function carregarMunicipios() {
+async function carregarMunicipios(cidadeSelecionada = '') {
   const estado = $('uf').value;
   const campoCidade = $('cidade');
 
@@ -277,6 +277,7 @@ async function carregarMunicipios() {
       campoCidade.appendChild(opcao);
     });
 
+    campoCidade.value = cidadeSelecionada;
     campoCidade.disabled = false;
 
   } catch (erro) {
@@ -285,6 +286,12 @@ async function carregarMunicipios() {
       '<option value="">Erro ao carregar. Tente novamente.</option>';
   }
 }
+
+$('uf').addEventListener('change', () => {
+  carregarMunicipios();
+});
+
+carregarMunicipios();
 
 $('uf').addEventListener('change', carregarMunicipios);
 
@@ -336,7 +343,11 @@ function prevForm(){
  $('eprev').textContent=saidaSemana({i:$('ei').value,b:b1&&b2&&toM(b2)>toM(b1)?toM(b2)-toM(b1):0,s1:$('es1').value,s2:$('es2').value})}
 function renderAll(){
  S.func.forEach(f=>{if(f.b1===undefined){f.b=f.b===undefined?60:f.b;f.b1=f.b>0?'12:00':'';f.b2=f.b>0?fmt(720+f.b):''}});
- $('nome').value=S.nome;$('mes').value=S.mes||new Date().toISOString().slice(0,7);
+$('nome').value = S.nome;
+$('mes').value = S.mes || new Date().toISOString().slice(0,7);
+
+$('uf').value = S.uf || '';
+carregarMunicipios(S.cidade || '');
  document.querySelectorAll('input[name=h]').forEach(r=>r.checked=+r.value===S.horas);
  $('days').innerHTML=[1,2,3,4,5,6,0].map(d=>`<label><input type="checkbox" value="${d}" ${S.abre.includes(d)?'checked':''}>${NOMES[d].slice(0,3)}</label>`).join('');
  S.cargos=S.cargos.filter(c=>S.func.some(f=>f.r===c.n));
@@ -510,6 +521,8 @@ function lerForm(){
  S.horas=+document.querySelector('input[name=h]:checked').value;
  S.abre=[...document.querySelectorAll('#days input:checked')].map(i=>+i.value);
  return S;
+ S.uf = $('uf').value;
+S.cidade = $('cidade').value;
 }
 $('roles').onclick=e=>{const i=e.target.dataset.r;if(i===undefined)return;const n=S.cargos[i].n;
  if(S.func.some(f=>f.r===n)&&!confirm('Há funcionários neste cargo. Remover mesmo assim?'))return;
