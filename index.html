@@ -299,7 +299,19 @@ const KEY='escala5x2_v1';
 const LOGO=document.querySelector('.logo').src;
 let S=novo(), DB={cur:'',perfis:{}}, plan=null;
 
-function novo(){return{nome:'',mes:new Date().toISOString().slice(0,7),horas:40,abre:[1,2,3,4,5],cargos:[],func:[],feriados:[]}}
+function novo(){
+  return {
+    nome: '',
+    uf: '',
+    cidade: '',
+    mes: new Date().toISOString().slice(0,7),
+    horas: 40,
+    abre: [1,2,3,4,5],
+    cargos: [],
+    func: [],
+    feriados: []
+  };
+}
 const toM=t=>{const[a,b]=t.split(':').map(Number);return a*60+b};
 const fmt=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
 const hm=m=>{m=Math.round(m);return Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):'')};
