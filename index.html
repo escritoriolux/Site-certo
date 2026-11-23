@@ -165,6 +165,58 @@ table.cal th.hr,table.cal td.hr{text-align:left;padding:4px 8px;min-width:120px;
 <div class="step" data-s="3" hidden>
  <section>
   <h2>Tem feriado neste mês? (opcional)</h2>
+  <div class="row">
+  <div>
+    <label for="uf">Estado da empresa</label>
+    <select id="uf">
+      <option value="">Selecione</option>
+      <option value="PR">Paraná</option>
+      <option value="SP">São Paulo</option>
+      <option value="SC">Santa Catarina</option>
+      <option value="RS">Rio Grande do Sul</option>
+      <option value="MS">Mato Grosso do Sul</option>
+      <option value="MT">Mato Grosso</option>
+      <option value="MG">Minas Gerais</option>
+      <option value="RJ">Rio de Janeiro</option>
+      <option value="GO">Goiás</option>
+      <option value="DF">Distrito Federal</option>
+      <option value="BA">Bahia</option>
+      <option value="ES">Espírito Santo</option>
+      <option value="SP">São Paulo</option>
+      <option value="TO">Tocantins</option>
+      <option value="PA">Pará</option>
+      <option value="AM">Amazonas</option>
+      <option value="CE">Ceará</option>
+      <option value="PE">Pernambuco</option>
+      <option value="MA">Maranhão</option>
+      <option value="PB">Paraíba</option>
+      <option value="RN">Rio Grande do Norte</option>
+      <option value="AL">Alagoas</option>
+      <option value="SE">Sergipe</option>
+      <option value="PI">Piauí</option>
+      <option value="AC">Acre</option>
+      <option value="AP">Amapá</option>
+      <option value="RO">Rondônia</option>
+      <option value="RR">Roraima</option>
+    </select>
+  </div>
+  <div>
+    <label for="cidade">Município da empresa</label>
+    <input id="cidade" placeholder="Ex.: Campo Mourão">
+  </div>
+</div>
+  <div class="row">
+  <div>
+    <label for="mes">Mês da escala e dos feriados</label>
+    <input type="month" id="mes" aria-label="Mês da escala">
+  </div>
+</div>
+  <div style="margin-top:10px">
+  <button type="button" class="p" id="bBuscarFeriados">
+    Buscar feriados automaticamente
+  </button>
+  <div id="feriadosAuto" style="margin-top:10px"></div>
+</div>
   <div class="row"><div><label for="fd">Data</label><input id="fd" type="date"></div><div><label for="fn">Nome</label><input id="fn" placeholder="Ex.: Finados"></div></div>
   <label>Alguém vai trabalhar nesse dia? Marque quem.</label><div id="fw"></div>
   <button id="bFer" style="margin-top:8px">Adicionar feriado</button><div id="fl"></div>
@@ -174,7 +226,7 @@ table.cal th.hr,table.cal td.hr{text-align:left;padding:4px 8px;min-width:120px;
 </div>
 
 <div class="step" data-s="4" hidden>
- <div class="bar"><input type="month" id="mes" aria-label="Mês da escala"><button class="p" id="bGen">Gerar escala</button><button id="bVis">Ver por semana</button><button id="bVar">Gerar outra variação</button><button id="bUndo">Desfazer ajustes</button><button id="bPrint">Imprimir / salvar PDF</button></div>
+ <div class="bar"><button class="p" id="bGen">Gerar escala</button><button id="bVis">Ver por semana</button><button id="bVar">Gerar outra variação</button><button id="bUndo">Desfazer ajustes</button><button id="bPrint">Imprimir / salvar PDF</button></div>
  <p class="hint noprint">Quer mudar um dia? Clique nele: T (trabalha) vira F (folga), e F vira T. O dia mudado fica com borda verde.</p>
  <div id="alerts"></div>
  <section class="sheet" id="out"><div class="empty">Gerando…</div></section>
