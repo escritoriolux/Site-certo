@@ -239,6 +239,60 @@ table.cal th.hr,table.cal td.hr{text-align:left;padding:4px 8px;min-width:120px;
 
 <script>
 const $=id=>document.getElementById(id);
+ 
+/* ---------- MUNICIPIOS AUTOMATICOS DO IBGE ---------- */
+
+async function carregarMunicipios() {
+  const estado = $('uf').value;
+  const campoCidade = $('cidade');
+
+  campoCidade.innerHTML =
+    '<option value="">Carregando municípios...</option>';
+  campoCidade.disabled = true;
+
+  if (!estado) {
+    campoCidade.innerHTML =
+      '<option value="">Primeiro selecione o estado</option>';
+    return;
+  }
+
+  try {
+    const resposta = await fetch(
+      `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado}/municipios?orderBy=nome`
+    );
+
+    if (!resposta.ok) {
+      throw new Error('Erro ao consultar o IBGE');
+    }
+
+    const municipios = await resposta.json();
+
+    campoCidade.innerHTML =
+      '<option value="">Selecione o município</option>';
+
+    municipios.forEach(municipio => {
+      const opcao = document.createElement('option');
+      opcao.value = municipio.nome;
+      opcao.textContent = municipio.nome;
+      campoCidade.appendChild(opcao);
+    });
+
+    campoCidade.disabled = false;
+
+  } catch (erro) {
+    console.error(erro);
+    campoCidade.innerHTML =
+      '<option value="">Erro ao carregar. Tente novamente.</option>';
+  }
+}
+
+$('uf').addEventListener('change', carregarMunicipios);
+
+// Carrega os municípios do estado selecionado ao abrir a página
+carregarMunicipios();
+
+/* ---------- FIM DOS MUNICIPIOS ---------- */
+
 const NOMES=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 const ORDEM=[1,2,3,4,5,6,0];
 const KEY='escala5x2_v1';
