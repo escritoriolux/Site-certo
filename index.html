@@ -662,7 +662,8 @@ const SUPABASE_KEY = 'sb_publishable_cubG5k9t40WnLFSiY665Nw_u8gEXjaJ';
 $('bBuscarFeriados').onclick = async () => {
   const periodo = $('mes').value;
   const uf = $('uf').value;
-  const cidade = $('cidade').selectedOptions[0]?.textContent.trim() || '';
+ const cidade = $('cidade').selectedOptions[0]?.textContent.trim() || '';
+alert('UF: ' + uf + '\nMunicípio: ' + cidade);
 
   if (!periodo) {
     alert('Selecione o mês da escala.');
